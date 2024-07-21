@@ -18,3 +18,126 @@ model User {
   password  String
   roles     Json
 }
+
+model Reservation {
+  id                 String                            @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt          DateTime                          @default(now())
+  updatedAt          DateTime                          @updatedAt
+  guestId            String?
+  hotelId            String?
+  roomId             String?
+  checkInDate        DateTime?
+  checkOutDate       DateTime?
+  numberOfGuests     String?
+  reservationStatus  EnumReservationReservationStatus?
+  totalPrice         Float?
+  paymentStatus      EnumReservationPaymentStatus?
+  bookingDate        DateTime?
+  specialRequests    String?
+  confirmationNumber String?
+  cancellationDate   DateTime?
+  cancellationReason String?
+  roomTypeId         String?
+  additionalServices String?
+  isPaid             Boolean?
+  lastModified       String?
+  guests             Guest[]
+}
+
+model Guest {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  lastName      String?
+  email         String?
+  firstName     String?
+  phoneNumber   String?
+  reservation   Reservation? @relation(fields: [reservationId], references: [id])
+  reservationId String?      @db.ObjectId
+}
+
+model Maintenance {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RoomType {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Amenity {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Employee {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Supplier {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Invoice {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Inventory {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RoomStatus {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Payment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Promotion {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum EnumReservationReservationStatus {
+  Option1
+}
+
+enum EnumReservationPaymentStatus {
+  Option1
+}
