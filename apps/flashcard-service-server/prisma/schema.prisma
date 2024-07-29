@@ -1,0 +1,68 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Level {
+  createdAt  DateTime    @default(now())
+  flashcards Flashcard[]
+  id         String      @id @default(cuid())
+  updatedAt  DateTime    @updatedAt
+}
+
+model UserSet {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Flashcard {
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+  categoryId String?
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  language   Language? @relation(fields: [languageId], references: [id])
+  languageId String?
+  languageId String?
+  level      Level?    @relation(fields: [levelId], references: [id])
+  levelId    String?
+  levelId    String?
+  updatedAt  DateTime  @updatedAt
+}
+
+model Language {
+  createdAt  DateTime    @default(now())
+  flashcards Flashcard[]
+  id         String      @id @default(cuid())
+  updatedAt  DateTime    @updatedAt
+}
+
+model Category {
+  createdAt  DateTime    @default(now())
+  flashcards Flashcard[]
+  id         String      @id @default(cuid())
+  updatedAt  DateTime    @updatedAt
+}
+
+model UserProgress {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
